@@ -4,7 +4,6 @@
 #ifndef __ASSEMBLY__
 
 #ifdef __CHECKER__
-# define __user		__attribute__((noderef, address_space(1)))
 # define __kernel	__attribute__((address_space(0)))
 # define __safe		__attribute__((safe))
 # define __force	__attribute__((force))
@@ -19,21 +18,14 @@
 # define __percpu	__attribute__((noderef, address_space(3)))
 # define __rcu		__attribute__((noderef, address_space(4)))
 # define __private	__attribute__((noderef))
-extern void __chk_user_ptr(const volatile void __user *);
 extern void __chk_io_ptr(const volatile void __iomem *);
 # define ACCESS_PRIVATE(p, member) (*((typeof((p)->member) __force *) &(p)->member))
 #else /* __CHECKER__ */
-# ifdef STRUCTLEAK_PLUGIN
-#  define __user __attribute__((user))
-# else
-#  define __user
-# endif
 # define __kernel
 # define __safe
 # define __force
 # define __nocast
 # define __iomem
-# define __chk_user_ptr(x) (void)0
 # define __chk_io_ptr(x) (void)0
 # define __builtin_warning(x, y...) (1)
 # define __must_hold(x)
