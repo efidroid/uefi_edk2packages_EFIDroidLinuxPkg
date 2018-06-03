@@ -47,11 +47,11 @@
 
 /* These are for everybody (although not all archs will actually
    discard it in modules) */
-#define __init		__section(.init.text) __cold  __latent_entropy __noinitretpoline
-#define __initdata	__section(.init.data)
-#define __initconst	__section(.init.rodata)
-#define __exitdata	__section(.exit.data)
-#define __exit_call	__used __section(.exitcall.exit)
+#define __init		__section(.text.init) __cold  __latent_entropy __noinitretpoline
+#define __initdata	__section(.data.init)
+#define __initconst	__section(.rodata.init)
+#define __exitdata	__section(.data.exit)
+#define __exit_call	__used __section(.data.exitcall)
 
 /*
  * modpost check for section mismatches during the kernel build.
@@ -70,9 +70,9 @@
  *
  * The markers follow same syntax rules as __init / __initdata.
  */
-#define __ref            __section(.ref.text) noinline
-#define __refdata        __section(.ref.data)
-#define __refconst       __section(.ref.rodata)
+#define __ref            __section(.text.ref) noinline
+#define __refdata        __section(.data.ref)
+#define __refconst       __section(.rodata.ref)
 
 #ifdef MODULE
 #define __exitused
@@ -80,34 +80,34 @@
 #define __exitused  __used
 #endif
 
-#define __exit          __section(.exit.text) __exitused __cold notrace
+#define __exit          __section(.text.exit) __exitused __cold notrace
 
 /* Used for MEMORY_HOTPLUG */
-#define __meminit        __section(.meminit.text) __cold notrace \
+#define __meminit        __section(.text.meminit) __cold notrace \
 						  __latent_entropy
-#define __meminitdata    __section(.meminit.data)
-#define __meminitconst   __section(.meminit.rodata)
-#define __memexit        __section(.memexit.text) __exitused __cold notrace
-#define __memexitdata    __section(.memexit.data)
-#define __memexitconst   __section(.memexit.rodata)
+#define __meminitdata    __section(.data.meminit)
+#define __meminitconst   __section(.rodata.meminit)
+#define __memexit        __section(.text.memexit) __exitused __cold notrace
+#define __memexitdata    __section(.data.memexit)
+#define __memexitconst   __section(.rodata.memexit)
 
 /* For assembly routines */
-#define __HEAD		.section	".head.text","ax"
-#define __INIT		.section	".init.text","ax"
+#define __HEAD		.section	".text.head","ax"
+#define __INIT		.section	".text.init","ax"
 #define __FINIT		.previous
 
-#define __INITDATA	.section	".init.data","aw",%progbits
-#define __INITRODATA	.section	".init.rodata","a",%progbits
+#define __INITDATA	.section	".data.init","aw",%progbits
+#define __INITRODATA	.section	".rodata.init","a",%progbits
 #define __FINITDATA	.previous
 
-#define __MEMINIT        .section	".meminit.text", "ax"
-#define __MEMINITDATA    .section	".meminit.data", "aw"
-#define __MEMINITRODATA  .section	".meminit.rodata", "a"
+#define __MEMINIT        .section	".text.meminit", "ax"
+#define __MEMINITDATA    .section	".data.meminit", "aw"
+#define __MEMINITRODATA  .section	".rodata.meminit", "a"
 
 /* silence warnings when references are OK */
-#define __REF            .section       ".ref.text", "ax"
-#define __REFDATA        .section       ".ref.data", "aw"
-#define __REFCONST       .section       ".ref.rodata", "a"
+#define __REF            .section       ".text.ref", "ax"
+#define __REFDATA        .section       ".data.ref", "aw"
+#define __REFCONST       .section       ".rodata.ref", "a"
 
 #ifndef __ASSEMBLY__
 
