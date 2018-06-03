@@ -7,7 +7,22 @@
   LIBRARY_CLASS                  = LinuxBaseLib
 
 [Sources.common]
+  bitmap.c
+  ctype.c
+  div64.c
+  find_bit.c
+  hexdump.c
+  hweight.c
+  int_sqrt.c
+  kasprintf.c
+  kmalloc.c
+  kstrtox.c
+  panic.c
+  printk.c
   string.c
+  string_helpers.c
+  uuid.c
+  vsprintf.c
 
 [Packages]
   MdePkg/MdePkg.dec
