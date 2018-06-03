@@ -1,0 +1,17 @@
+[Defines]
+  DEC_SPECIFICATION              = 0x00010005
+  PACKAGE_NAME                   = EFIDroidLinuxPkg
+  PACKAGE_GUID                   = bf01bde9-7ae2-403e-af0b-7ea0d1fe9212
+  PACKAGE_VERSION                = 0.1
+
+[Includes.common]
+  # Linux
+  IncludeArch
+  IncludeArchGenerated
+  IncludeGeneric
+  IncludeUefi
+
+  # User
+  IncludeArch/uapi
+  IncludeArchGenerated/uapi
+  IncludeGeneric/uapi
